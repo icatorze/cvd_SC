@@ -78,5 +78,3 @@ for g in grupos:
 
 plt.grid()
 plt.legend()
-
-print(deathsdf)
