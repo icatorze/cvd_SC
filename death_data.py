@@ -62,20 +62,15 @@ print(pv)
 xx, yy = np.mgrid[0:len(pv.index),0:len(pv.columns)]
 
 fig = plt.figure()
-ax = fig.add_subplot(111)#, projection='3d')
-
+ax = fig.add_subplot(111)
 #ax.plot_surface(xx, yy, pv.values, cmap='jet', rstride=1, cstride=10)
 #ax.plot_surface(xx, yy, pv.values, cmap='jet', linewidth=5)
 #ax.scatter(xx, yy, pv.values,c=pv.values, cmap='plasma')
 
 c = ax.pcolormesh(xx,yy,pv.values,vmin=np.min(pv.values), \
                   vmax=np.max(pv.values),cmap='plasma', \
-                  alpha=0.5) 
+                  alpha=0.8) 
 fig.colorbar(c, ax=ax)   
-
-
-ax.grid(False)
-
 dates = [x.strftime('%Y-%m-%d') for x in pv.index]
 idades = [str(x) for x in pv.columns]
 
@@ -87,5 +82,16 @@ ax.set_yticklabels(idades[::10])
 
 ax = plt.gca()
 plt.gcf().autofmt_xdate()
+
+ax.grid(False)
+
+fig2 = plt.figure()
+ax2 = fig2.add_subplot(111, projection='3d')
+ax2.plot_surface(xx, yy, pv.values, cmap='jet', rstride=1, cstride=10)
+ax2.set_xticks(xx[::15,0])
+ax2.set_xticklabels(dates[::15])
+ax2.set_yticks(yy[0,::10])
+ax2.set_yticklabels(idades[::10])
+
 
 plt.show()
